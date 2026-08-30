@@ -1,0 +1,28 @@
+# Secrets and local environment
+.env
+.env.*
+!.env.example
+*.pem
+*.key
+*.p12
+*.pfx
+credentials*.json
+secrets*.json
+
+# Runtime/local artifacts
+node_modules/
+__pycache__/
+*.pyc
+.DS_Store
+Thumbs.db
+
+# n8n/local temporary data
+.n8n/
+.n8n-local/
+
+# Test/build outputs
+coverage/
+dist/
+build/
+.tmp/
+tmp/
