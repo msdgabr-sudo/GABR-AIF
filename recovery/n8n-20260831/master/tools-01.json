@@ -1,0 +1,96 @@
+[
+  {
+    "type": "custom",
+    "id": "calculator"
+  },
+  {
+    "type": "node",
+    "name": "read_user_memory",
+    "description": "READ-ONLY. Retrieve rows from GABR_USER_MEMORY (persistent operational memory of user preferences), governed by Skill 12 USER classification. Looks up rows by exact user_id match. Use to recall a user's stored preferences before acting. Cannot modify or delete data.",
+    "node": {
+      "nodeType": "n8n-nodes-base.dataTableTool",
+      "nodeTypeVersion": 1.1,
+      "nodeParameters": {
+        "resource": "row",
+        "operation": "get",
+        "dataTableId": {
+          "__rl": true,
+          "mode": "id",
+          "value": "M8rpmFQr8DT1Dkc2"
+        },
+        "matchType": "allConditions",
+        "filters": {
+          "conditions": [
+            {
+              "keyName": "user_id",
+              "condition": "eq",
+              "keyValue": "={{ $fromAI('user_id','The user_id whose preferences to retrieve','string') }}"
+            }
+          ]
+        },
+        "returnAll": false,
+        "limit": 50
+      }
+    }
+  },
+  {
+    "type": "node",
+    "name": "write_user_memory",
+    "description": "Insert or update (upsert, matched on user_id + preference_key) a row in GABR_USER_MEMORY. Use to persist a user preference per Skill 12 USER classification. Set created_date/updated_date to the current date (ISO 8601). Never store an assumption as VERIFIED_FACT; record uncertain items with an honest classification/status. This is operational persistent memory, not model retraining. Cannot delete rows.",
+    "node": {
+      "nodeType": "n8n-nodes-base.dataTableTool",
+      "nodeTypeVersion": 1.1,
+      "nodeParameters": {
+        "resource": "row",
+        "operation": "upsert",
+        "dataTableId": {
+          "__rl": true,
+          "mode": "id",
+          "value": "M8rpmFQr8DT1Dkc2"
+        },
+        "matchType": "allConditions",
+        "filters": {
+          "conditions": [
+            {
+              "keyName": "user_id",
+              "condition": "eq",
+              "keyValue": "={{ $fromAI('user_id','User identifier to match/insert','string') }}"
+            },
+            {
+              "keyName": "preference_key",
+              "condition": "eq",
+              "keyValue": "={{ $fromAI('preference_key','Preference key to match/insert','string') }}"
+            }
+          ]
+        },
+        "columns": {
+          "mappingMode": "defineBelow",
+          "matchingColumns": [
+            "user_id",
+            "preference_key"
+          ],
+          "value": {
+            "user_id": "={{ $fromAI('user_id','User identifier','string') }}",
+            "preference_key": "={{ $fromAI('preference_key','Preference key','string') }}",
+            "preference_value": "={{ $fromAI('preference_value','Preference value','string') }}",
+            "classification": "={{ $fromAI('classification','Classification per Skill 12; never store an assumption as VERIFIED_FACT','string') }}",
+            "status": "={{ $fromAI('status','Status, e.g. active or superseded','string') }}",
+            "source": "={{ $fromAI('source','Provenance of this preference (user statement, inference, etc.)','string') }}",
+            "created_date": "={{ $fromAI('created_date','Creation date, ISO 8601; use the current date for new rows','string') }}",
+            "updated_date": "={{ $fromAI('updated_date','Last update date, ISO 8601; use the current date','string') }}"
+          },
+          "schema": [
+            {"id":"user_id","displayName":"user_id","required":false,"defaultMatch":false,"display":true,"type":"string","canBeUsedToMatch":true},
+            {"id":"preference_key","displayName":"preference_key","required":false,"defaultMatch":false,"display":true,"type":"string","canBeUsedToMatch":true},
+            {"id":"preference_value","displayName":"preference_value","required":false,"defaultMatch":false,"display":true,"type":"string","canBeUsedToMatch":false},
+            {"id":"classification","displayName":"classification","required":false,"defaultMatch":false,"display":true,"type":"string","canBeUsedToMatch":false},
+            {"id":"status","displayName":"status","required":false,"defaultMatch":false,"display":true,"type":"string","canBeUsedToMatch":false},
+            {"id":"source","displayName":"source","required":false,"defaultMatch":false,"display":true,"type":"string","canBeUsedToMatch":false},
+            {"id":"created_date","displayName":"created_date","required":false,"defaultMatch":false,"display":true,"type":"string","canBeUsedToMatch":false},
+            {"id":"updated_date","displayName":"updated_date","required":false,"defaultMatch":false,"display":true,"type":"string","canBeUsedToMatch":false}
+          ]
+        }
+      }
+    }
+  }
+]
