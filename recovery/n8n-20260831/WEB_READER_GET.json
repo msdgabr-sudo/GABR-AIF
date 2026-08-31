@@ -1,0 +1,39 @@
+{
+  "name": "WEB_READER_GET",
+  "nodes": [
+    {
+      "id": "727d38ff-3ff6-4397-8c4d-94b86ed54968",
+      "name": "When Called",
+      "type": "n8n-nodes-base.executeWorkflowTrigger",
+      "typeVersion": 1.2,
+      "position": [0, 0],
+      "parameters": {
+        "inputSource": "workflowInputs",
+        "workflowInputs": {"values": [{"name": "url", "type": "string"}]}
+      }
+    },
+    {
+      "id": "19fd3e9c-eb5f-4cbd-9aeb-5b34db5804d3",
+      "name": "HTTP GET",
+      "type": "n8n-nodes-base.httpRequest",
+      "typeVersion": 4.5,
+      "position": [224, 0],
+      "parameters": {
+        "method": "GET",
+        "url": "={{ $json.url }}",
+        "authentication": "none",
+        "options": {
+          "redirect": {"redirect": {"followRedirects": true, "maxRedirects": 5}},
+          "response": {"response": {"responseFormat": "text", "neverError": true}},
+          "timeout": 15000
+        }
+      }
+    }
+  ],
+  "connections": {"When Called": {"main": [[{"node": "HTTP GET", "type": "main", "index": 0}]]}},
+  "settings": {"executionOrder": "v1"},
+  "staticData": null,
+  "pinData": {},
+  "triggerCount": 0,
+  "meta": null
+}

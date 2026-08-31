@@ -1,0 +1,54 @@
+[
+  {
+    "agent": "GABR - Deep Research Agent",
+    "skill_id": "skill_zEUX6kiotxvkPBaC"
+  },
+  {
+    "agent": "GABR - Deep Research Agent",
+    "skill_id": "skill_o9dtmkP4uLlHkfwq"
+  },
+  {
+    "agent": "GABR - Critical Reasoning Agent",
+    "skill_id": "skill_B6iqd3gfs0DAnteo"
+  },
+  {
+    "agent": "GABR - Critical Reasoning Agent",
+    "skill_id": "skill_ktSHOwqE96lK6cXY"
+  },
+  {
+    "agent": "GABR - Innovation Agent",
+    "skill_id": "skill_jl13ChHqGXxvbExy"
+  },
+  {
+    "agent": "GABR - Innovation Agent",
+    "skill_id": "skill_bFkPadDOcGMVFRnv"
+  },
+  {
+    "agent": "GABR - Planning & Systems Agent",
+    "skill_id": "skill_0zlspxBUoYl81aNg"
+  },
+  {
+    "agent": "GABR - Business & Finance Agent",
+    "skill_id": "skill_mPGErPjgjE85LZIB"
+  },
+  {
+    "agent": "GABR - Business & Finance Agent",
+    "skill_id": "skill_lwpFtL2oypym5JUO"
+  },
+  {
+    "agent": "GABR - Business & Finance Agent",
+    "skill_id": "skill_Qh1MAQfHwHJxY0kc"
+  },
+  {
+    "agent": "GABR - Business & Finance Agent",
+    "skill_id": "skill_Fj65opkvUMtvRCsw"
+  },
+  {
+    "agent": "GABR - Human & Knowledge Agent",
+    "skill_id": "skill_4QHEii593XtfWfWy"
+  },
+  {
+    "agent": "GABR - Human & Knowledge Agent",
+    "skill_id": "skill_xva3hYPt64tV3nLY"
+  }
+]
