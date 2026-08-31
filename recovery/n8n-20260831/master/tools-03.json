@@ -1,0 +1,96 @@
+[
+  {
+    "type": "node",
+    "name": "write_knowledge_memory",
+    "description": "Insert or update (upsert, matched on topic) a row in GABR_KNOWLEDGE_MEMORY. Use to persist a known fact per Skill 12 KNOWLEDGE classification, always recording confidence and source. Set created_date to the current date (ISO 8601). Never store an assumption or inference as a VERIFIED_FACT; use an honest classification/confidence. Operational persistent memory, not model retraining. Cannot delete rows.",
+    "node": {
+      "nodeType": "n8n-nodes-base.dataTableTool",
+      "nodeTypeVersion": 1.1,
+      "nodeParameters": {
+        "resource": "row",
+        "operation": "upsert",
+        "dataTableId": {"__rl":true,"mode":"id","value":"9fWq7oo8awRw1m8f"},
+        "matchType": "allConditions",
+        "filters": {"conditions":[{"keyName":"topic","condition":"eq","keyValue":"={{ $fromAI('topic','Topic to match/insert','string') }}"}]},
+        "columns": {
+          "mappingMode": "defineBelow",
+          "matchingColumns": ["topic"],
+          "value": {
+            "topic": "={{ $fromAI('topic','Topic of the knowledge entry','string') }}",
+            "content": "={{ $fromAI('content','The knowledge content','string') }}",
+            "classification": "={{ $fromAI('classification','Classification per Skill 12 (e.g. FACT, INFERENCE, HYPOTHESIS); never label an assumption as VERIFIED_FACT','string') }}",
+            "confidence": "={{ $fromAI('confidence','Confidence level, e.g. high/medium/low','string') }}",
+            "source": "={{ $fromAI('source','Source of the knowledge','string') }}",
+            "source_date": "={{ $fromAI('source_date','Date of the source, ISO 8601','string') }}",
+            "created_date": "={{ $fromAI('created_date','Creation date, ISO 8601; use the current date','string') }}"
+          },
+          "schema": [
+            {"id":"topic","displayName":"topic","required":false,"defaultMatch":false,"display":true,"type":"string","canBeUsedToMatch":true},
+            {"id":"content","displayName":"content","required":false,"defaultMatch":false,"display":true,"type":"string","canBeUsedToMatch":false},
+            {"id":"classification","displayName":"classification","required":false,"defaultMatch":false,"display":true,"type":"string","canBeUsedToMatch":false},
+            {"id":"confidence","displayName":"confidence","required":false,"defaultMatch":false,"display":true,"type":"string","canBeUsedToMatch":false},
+            {"id":"source","displayName":"source","required":false,"defaultMatch":false,"display":true,"type":"string","canBeUsedToMatch":false},
+            {"id":"source_date","displayName":"source_date","required":false,"defaultMatch":false,"display":true,"type":"string","canBeUsedToMatch":false},
+            {"id":"created_date","displayName":"created_date","required":false,"defaultMatch":false,"display":true,"type":"string","canBeUsedToMatch":false}
+          ]
+        }
+      }
+    }
+  },
+  {
+    "type": "node",
+    "name": "read_failure_memory",
+    "description": "READ-ONLY. Retrieve rows from GABR_FAILURE_MEMORY (persistent log of past failures, root causes, and prevention lessons), governed by Skill 12 FAILURE classification. Looks up rows by exact failure_summary match. Use to recall past mistakes and avoid repeating them. Cannot modify or delete data.",
+    "node": {
+      "nodeType": "n8n-nodes-base.dataTableTool",
+      "nodeTypeVersion": 1.1,
+      "nodeParameters": {
+        "resource": "row",
+        "operation": "get",
+        "dataTableId": {"__rl":true,"mode":"id","value":"HWwBBHwlidV5I5h0"},
+        "matchType": "allConditions",
+        "filters": {"conditions":[{"keyName":"failure_summary","condition":"eq","keyValue":"={{ $fromAI('failure_summary','The failure_summary to look up','string') }}"}]},
+        "returnAll": false,
+        "limit": 50
+      }
+    }
+  },
+  {
+    "type": "node",
+    "name": "write_failure_memory",
+    "description": "Insert or update (upsert, matched on failure_summary) a row in GABR_FAILURE_MEMORY. Use to persist a failure, its root cause, the incorrect assumption, the correction, and the prevention lesson per Skill 12 FAILURE classification. Set occurred_at to the current date (ISO 8601). Record facts honestly; never disguise an assumption as a verified fact. Operational persistent memory, not model retraining. Cannot delete rows.",
+    "node": {
+      "nodeType": "n8n-nodes-base.dataTableTool",
+      "nodeTypeVersion": 1.1,
+      "nodeParameters": {
+        "resource": "row",
+        "operation": "upsert",
+        "dataTableId": {"__rl":true,"mode":"id","value":"HWwBBHwlidV5I5h0"},
+        "matchType": "allConditions",
+        "filters": {"conditions":[{"keyName":"failure_summary","condition":"eq","keyValue":"={{ $fromAI('failure_summary','Short failure summary to match/insert','string') }}"}]},
+        "columns": {
+          "mappingMode": "defineBelow",
+          "matchingColumns": ["failure_summary"],
+          "value": {
+            "failure_summary": "={{ $fromAI('failure_summary','Short summary of the failure','string') }}",
+            "root_cause": "={{ $fromAI('root_cause','Root cause of the failure','string') }}",
+            "incorrect_assumption": "={{ $fromAI('incorrect_assumption','The incorrect assumption that led to the failure','string') }}",
+            "correction": "={{ $fromAI('correction','The correction applied','string') }}",
+            "prevention_lesson": "={{ $fromAI('prevention_lesson','Lesson to prevent recurrence','string') }}",
+            "context_source": "={{ $fromAI('context_source','Context or source where the failure occurred','string') }}",
+            "occurred_at": "={{ $fromAI('occurred_at','When the failure occurred, ISO 8601; use the current date','string') }}"
+          },
+          "schema": [
+            {"id":"failure_summary","displayName":"failure_summary","required":false,"defaultMatch":false,"display":true,"type":"string","canBeUsedToMatch":true},
+            {"id":"root_cause","displayName":"root_cause","required":false,"defaultMatch":false,"display":true,"type":"string","canBeUsedToMatch":false},
+            {"id":"incorrect_assumption","displayName":"incorrect_assumption","required":false,"defaultMatch":false,"display":true,"type":"string","canBeUsedToMatch":false},
+            {"id":"correction","displayName":"correction","required":false,"defaultMatch":false,"display":true,"type":"string","canBeUsedToMatch":false},
+            {"id":"prevention_lesson","displayName":"prevention_lesson","required":false,"defaultMatch":false,"display":true,"type":"string","canBeUsedToMatch":false},
+            {"id":"context_source","displayName":"context_source","required":false,"defaultMatch":false,"display":true,"type":"string","canBeUsedToMatch":false},
+            {"id":"occurred_at","displayName":"occurred_at","required":false,"defaultMatch":false,"display":true,"type":"string","canBeUsedToMatch":false}
+          ]
+        }
+      }
+    }
+  }
+]
