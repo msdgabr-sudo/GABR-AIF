@@ -1,0 +1,29 @@
+{
+  "name": "GABR AI",
+  "model": "openrouter/deepseek/deepseek-v4-flash",
+  "personalisation": {
+    "icon": "bot",
+    "gradient": {
+      "from": "#0097FF",
+      "to": "#FF712A",
+      "angle": 7,
+      "fromStop": 2,
+      "toStop": 86
+    }
+  },
+  "memory": {
+    "enabled": true,
+    "storage": "n8n",
+    "observationalMemory": {
+      "enabled": true
+    }
+  },
+  "credential": "INSTANCE_SCOPED_CREDENTIAL_REMOVED",
+  "config": {
+    "webSearch": {
+      "enabled": false
+    }
+  },
+  "providerTools": {},
+  "integrations": []
+}

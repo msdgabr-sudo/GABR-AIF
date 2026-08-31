@@ -1,0 +1,32 @@
+{
+  "recovery_date": "2026-08-31",
+  "branch": "recovery/gabr-n8n-preservation-20260831",
+  "status": "PARTIAL_BUT_COGNITIVE_LAYER_PRESERVED",
+  "recovered": {
+    "master_constitution": true,
+    "master_skills": 14,
+    "specialist_agents": 8,
+    "master_routing": true,
+    "memory_tool_definitions": true,
+    "web_reader_get": true,
+    "browser_local_test_console": true
+  },
+  "known_missing": {
+    "specialist_skill_bodies": 13,
+    "external_gabr_runtime_source": true
+  },
+  "security": {
+    "agent_credential_references_sanitized": true,
+    "api_keys_intentionally_committed": false,
+    "passwords_intentionally_committed": false,
+    "tokens_intentionally_committed": false,
+    "cookies_intentionally_committed": false,
+    "note": "Instance-scoped non-secret IDs may remain for migration traceability."
+  },
+  "test_console": {
+    "path": "test-console/index.html",
+    "mode": "browser-local WebLLM/WebGPU",
+    "paid_api_required": false,
+    "limitations": ["No live web tools", "No persistent memory", "No real sub-agent execution", "Open-weight model quality depends on selected model and hardware"]
+  }
+}

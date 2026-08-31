@@ -1,0 +1,41 @@
+{
+  "recovery_date": "2026-08-31",
+  "branch_target": "recovery/gabr-n8n-preservation-20260831",
+  "security": "credential references removed from agent exports; no API keys intentionally included",
+  "known_missing": [
+    "13 specialist-skill bodies referenced by specialist agents",
+    "external gabr-runtime code reported by builder"
+  ],
+  "files": [
+    {
+      "path": "GABR_AI_MASTER_SANITIZED.json",
+      "bytes": 96280,
+      "sha256": "98b58a84f5dd1954060894a81f12dca8da457ae56edfcdbb5daaf119fd6c38e1"
+    },
+    {
+      "path": "GABR_MASTER_SKILLS_RECOVERED.md",
+      "bytes": 52195,
+      "sha256": "d410e30e9f7e903a5f3e5a91b710cb216b5c910e0a7a682be9594a8dd9bcdbf5"
+    },
+    {
+      "path": "GABR_SPECIALIST_AGENTS_SANITIZED.json",
+      "bytes": 42998,
+      "sha256": "60967da3ed9c50451bee7690320ef000aa783a190bf40e6440efe0f66196b05f"
+    },
+    {
+      "path": "README.md",
+      "bytes": 1101,
+      "sha256": "c455f7ddae7641e538737bb2db125bf0741f16e54eabc19345f05c786c2c4ee2"
+    },
+    {
+      "path": "SPECIALIST_SKILLS_NOT_YET_RECOVERED.json",
+      "bytes": 1248,
+      "sha256": "5fc01425a985767f2654977657040468b336ae81d9523ad29b57902f73ae5649"
+    },
+    {
+      "path": "WEB_READER_GET.json",
+      "bytes": 1522,
+      "sha256": "cd0617a9421e30a37989cd70f3c077f9c0ebde98a42b6b324cbba4f515477d09"
+    }
+  ]
+}
